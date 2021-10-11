@@ -2,8 +2,10 @@ package com.example.paing3kotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paing3kotlin.adapter.MainAdapter
 import com.example.paing3kotlin.api.ApiInterface
@@ -25,7 +27,13 @@ class MainActivity : AppCompatActivity() {
         setupList()
         setupView()
 
-
+        adapter.addLoadStateListener {
+            if (it.refresh == LoadState.Loading) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+            }
+        }
     }
 
     private fun setupView() {
